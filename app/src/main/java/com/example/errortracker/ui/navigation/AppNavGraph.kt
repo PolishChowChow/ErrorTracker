@@ -19,7 +19,7 @@ import com.example.errortracker.ui.screens.GraphScreen
 import org.w3c.dom.Text
 
 @Composable
-fun AppNavGraph(navController: NavHostController){
+fun AppNavGraph(navController: NavHostController, modifier: Modifier){
     val errorCodes = remember { mutableStateListOf<ErrorCode>() }
     fun pushErrorCode(errorCode: ErrorCode){
         errorCodes.add(errorCode)

@@ -25,14 +25,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
-            App()
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                App(modifier = Modifier.padding(innerPadding))
+            }
+
         }
     }
 }
 
 @Composable
-fun App(){
+fun App(modifier: Modifier){
     val navController = rememberNavController()
-    AppNavGraph(navController = navController)
+    AppNavGraph(navController = navController, modifier=Modifier.padding())
 }

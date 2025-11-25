@@ -6,8 +6,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -19,8 +23,8 @@ fun Input(
     val placeholderConditionally:String = if(checkNotNull(placeholder) != "" && placeholder != "") placeholder else ""
     TextField(
         value = textValue,
+        textStyle = TextStyle(fontSize = 10.sp, textAlign = TextAlign.Center),
         onValueChange = { it -> onValueChange(it) },
-        label = { Text(text=placeholderConditionally) },
-        modifier = Modifier.size(70.dp, 50.dp).padding(2.dp)
+        modifier = Modifier.size(80.dp, 50.dp),
     )
 }

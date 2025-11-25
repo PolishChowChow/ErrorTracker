@@ -1,14 +1,22 @@
 package com.example.errortracker.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.example.errortracker.data.ErrorCode
 
 
@@ -16,16 +24,15 @@ import com.example.errortracker.data.ErrorCode
 fun Form(
     addErrorRecord: (errorRecord: ErrorCode) -> Unit,
 ){
-    var formData by remember { mutableStateOf(ErrorCode("","","","")) }
+    var formData by remember { mutableStateOf(ErrorCode("","","")) }
     fun clearFormData(){
         formData = formData.copy(
             operation = "",
             errorValue = "",
             structure = "",
-            additionalInfo = ""
         )
     }
-    Row () {
+    Row (modifier = Modifier.fillMaxWidth().padding(20.dp, 0.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
         Column() {
             Input(
                 textValue = formData.operation,
@@ -48,24 +55,13 @@ fun Form(
             )
         }
         Column() {
-            Input(
-                textValue = formData.additionalInfo,
-                onValueChange = { it ->  formData = formData.copy(additionalInfo = it) },
-                placeholder = "BAD"
-            )
-        }
-
-        Column() {
             Button(
                 onClick = {
                     addErrorRecord(formData);
                     clearFormData(); },
-
             ) {
                 Text("+")
             }
         }
-
-
     }
 }
