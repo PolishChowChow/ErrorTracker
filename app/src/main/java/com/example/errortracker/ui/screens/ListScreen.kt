@@ -22,10 +22,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.errortracker.data.ErrorCode
 import com.example.errortracker.ui.components.Form
+import java.util.UUID
 
 @Composable
 fun ListScreen(
     addErrorRecord: (errorRecord: ErrorCode) -> Unit,
+    removeErrorCode: (id: UUID) -> Unit,
     errorRecords: SnapshotStateList<ErrorCode>
 ) {
     Column(modifier = Modifier.padding(top = 50.dp).fillMaxWidth()) {
@@ -47,7 +49,7 @@ fun ListScreen(
                         }
                         Column() {
                             Button(
-                                onClick = { },
+                                onClick = { removeErrorCode(record.id)},
                             ) {
                                 Text("-")
                             }
