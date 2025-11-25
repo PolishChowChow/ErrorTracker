@@ -8,21 +8,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.example.errortracker.data.ErrorCode
 
-data class ErrorCode(
-    val id: Int,
-    val operation: String,
-    val structure: String,
-    val error_value: String,
-    val additional_info: String? = null
-)
 @Composable
 fun HomeScreen(
     onNavigateToGraph: () -> Unit,
     onNavigateToList: () -> Unit
 ) {
-    val errorCodes = remember { mutableStateListOf<ErrorCode>() }
-
     Column {
         Button(onClick = { onNavigateToGraph() }) {
             Text("Go to graph")
