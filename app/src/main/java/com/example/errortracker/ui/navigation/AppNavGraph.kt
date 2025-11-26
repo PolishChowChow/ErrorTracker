@@ -2,59 +2,65 @@ package com.example.errortracker.ui.navigation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.errortracker.data.ErrorCode
 import com.example.errortracker.ui.screens.ListScreen
 import com.example.errortracker.ui.screens.GraphScreen
-import org.w3c.dom.Text
 import java.util.UUID
 
 @Composable
 fun AppNavGraph(navController: NavHostController, modifier: Modifier){
     val errorCodes = remember { mutableStateListOf<ErrorCode>() }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     fun pushErrorCode(errorCode: ErrorCode){
         errorCodes.add(errorCode)
     }
     fun removeErrorCode(id: UUID){
         errorCodes.removeIf { it -> it.id.equals(id) }
     }
-    NavHost(
-        navController = navController,
-        startDestination = Screen.List.route
-    ) {
-        composable(Screen.Graph.route) {
-            GraphScreen()
+    Column(modifier=Modifier.fillMaxHeight()) {
+        Row(
+            modifier = Modifier.fillMaxHeight(0.9f).verticalScroll(rememberScrollState())
+        ) {
+            NavHost(
+                navController = navController,
+                startDestination = Screen.List.route
+            ) {
+                composable(Screen.Graph.route) {
+                    GraphScreen()
+                }
+                composable(Screen.List.route) {
+                    ListScreen(
+                        addErrorRecord = ::pushErrorCode,
+                        removeErrorCode = ::removeErrorCode,
+                        errorRecords = errorCodes
+                    )
+                }
+            }
         }
-        composable(Screen.List.route) {
-            ListScreen(
-                addErrorRecord = ::pushErrorCode,
-                removeErrorCode = ::removeErrorCode,
-                errorRecords = errorCodes
-
+        Row() {
+            NavBar(
+                actualRoute = currentRoute,
+                onGraphPress = { navController.navigate(Screen.Graph.route) },
+                onListPress = { navController.navigate(Screen.List.route) }
             )
         }
-    }
-    Row() {
-        Column() {
-            Button(onClick = { navController.navigate(Screen.List.route) } ){
-                Text("List")
-            }
-        }
-        Column() {
-            Button(onClick = { navController.navigate(Screen.Graph.route) } ){
-                Text("Graph")
-            }
-        }
+
     }
 }

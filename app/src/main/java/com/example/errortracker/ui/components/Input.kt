@@ -23,7 +23,7 @@ fun Input(
     val placeholderConditionally:String = if(checkNotNull(placeholder) != "" && placeholder != "") placeholder else ""
     TextField(
         value = textValue,
-        textStyle = TextStyle(fontSize = 10.sp, textAlign = TextAlign.Center),
+        textStyle = TextStyle(textAlign = TextAlign.Center),
         onValueChange = { it -> onValueChange(it) },
         modifier = Modifier.size(80.dp, 50.dp),
     )
