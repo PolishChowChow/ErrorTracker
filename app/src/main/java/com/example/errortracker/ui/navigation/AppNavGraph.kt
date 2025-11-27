@@ -16,10 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.errortracker.data.DataHandler
 import com.example.errortracker.data.ErrorCode
 import com.example.errortracker.ui.components.Header
 import com.example.errortracker.ui.screens.ListScreen
@@ -28,22 +30,16 @@ import java.util.UUID
 
 @Composable
 fun AppNavGraph(navController: NavHostController, modifier: Modifier){
-    val errorCodes = remember { mutableStateListOf<ErrorCode>() }
+    val errorCodes = DataHandler()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    fun pushErrorCode(errorCode: ErrorCode){
-        errorCodes.add(errorCode)
-    }
-    fun removeErrorCode(id: UUID){
-        errorCodes.removeIf { it -> it.id.equals(id) }
-    }
     Column(modifier=Modifier.fillMaxHeight()) {
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row() {
             Header()
         }
         Row(
-            modifier = Modifier.fillMaxHeight(0.9f).verticalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxHeight(0.83f).verticalScroll(rememberScrollState())
         ) {
             NavHost(
                 navController = navController,
@@ -54,9 +50,9 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier){
                 }
                 composable(Screen.List.route) {
                     ListScreen(
-                        addErrorRecord = ::pushErrorCode,
-                        removeErrorCode = ::removeErrorCode,
-                        errorRecords = errorCodes
+                        addErrorRecord = errorCodes::addErrorCode,
+                        removeErrorCode = errorCodes::removeErrorCode,
+                        errorRecords = errorCodes.codes()
                     )
                 }
             }
