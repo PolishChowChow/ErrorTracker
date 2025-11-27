@@ -12,12 +12,13 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomRow(
     modifier: Modifier = Modifier,
-    wrap: @Composable (child: @Composable () -> Unit) -> Unit,
-    vararg children: @Composable () -> Unit
+    defaultWeight: Float = 1f,
+    wrap: @Composable (child: @Composable () -> Unit, weight: Float) -> Unit,
+    vararg children: Pair<@Composable () -> Unit, Float?>
 ) {
     Row(modifier = modifier) {
-        for (child in children) {
-            wrap(child)
+        for ((child, weight) in children) {
+            wrap(child, weight ?: defaultWeight)
         }
     }
 }

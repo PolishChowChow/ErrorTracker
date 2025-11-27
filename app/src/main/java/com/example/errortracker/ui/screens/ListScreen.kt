@@ -34,76 +34,78 @@ fun ListScreen(
     removeErrorCode: (id: UUID) -> Unit,
     errorRecords: SnapshotStateList<ErrorCode>
 ) {
-    Column(modifier = Modifier.padding(all = 30.dp).fillMaxWidth()) {
+    Column(modifier =
+        Modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+    ) {
         Row() {
             Column() {
                 CustomRow(
                     modifier = Modifier,
-                    wrap = { child ->
+                    1f,
+                    wrap = { child, weight ->
                         Box(
                             modifier = Modifier
-                                .weight(1f)
+                                .weight(weight)
                                 .fillMaxHeight()
-                                .padding(5.dp)
                         ){
                             child()
                         }
                     },
-                    {
-                        Text(text="operation", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
-                            Alignment.Center))
-                    },
-                    {
-                        Text(text="structure", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
-                            Alignment.Center))
-                    },
-                    {
-                        Text(text="error", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
-                            Alignment.Center))
-                    },
-                    {
-                        Text(text="", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
-                            Alignment.Center))
-                    }
+                    children = arrayOf(
+                        (@Composable {
+                            Text(text="operation", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                Alignment.Center))
+                        } to 1f),
+                            (@Composable {
+                            Text(text="structure", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                Alignment.Center))
+                        } to 1f),
+                        (@Composable {
+                            Text(text="error", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                Alignment.Center))
+                        } to 1f),
+                        (@Composable {
+                            Text(text="", modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                Alignment.Center))
+                        } to .6f)
+                    )
                 )
                 errorRecords.forEach { record ->
                     CustomRow (
                         modifier = Modifier,
-                        wrap = { child ->
+                        wrap = { child, weight ->
                             Box(
                                 modifier = Modifier
-                                    .weight(1f)
+                                    .weight(weight)
                                     .fillMaxHeight()
-                                    .padding(5.dp)
+//                                    .padding(5.dp)
                             ){
                                 child()
                             }
                         },
-                        {
-                            Text(
-                                text = record.operation,
-                                modifier = Modifier.size(80.dp, 50.dp).padding(2.dp)
-                                    .wrapContentSize(
-                                        Alignment.Center
-                                    )
-                            )
-                        },
-                        {
-                            Text(text=record.structure, modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
-                                Alignment.Center))
-                        }, {
-                            Text(text=record.errorValue, modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
-                                Alignment.Center))
-                        }, {
-                            Button(
-                                onClick = { removeErrorCode(record.id)},
-                            ) {
-                                Text("-")
-                            }
-                        }
-                    )
-
-
+                        children = arrayOf(
+                            (@Composable {
+                                Text(text=record.operation, modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                    Alignment.Center))
+                            } to 1f),
+                            (@Composable {
+                                Text(text=record.structure, modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                    Alignment.Center))
+                            } to 1f),
+                            (@Composable {
+                                Text(text=record.errorValue, modifier = Modifier.size(80.dp, 50.dp).padding(2.dp).wrapContentSize(
+                                    Alignment.Center))
+                            } to 1f),
+                            (@Composable {
+                                Button(
+                                    onClick = { removeErrorCode(record.id)},
+                                ) {
+                                    Text("-")
+                                }
+                            } to .6f)
+                        ))
                     }
                 }
             }
