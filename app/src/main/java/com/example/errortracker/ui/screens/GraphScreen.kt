@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun GraphScreen() {
-    Row() {
+    Row {
         Text("Graph screen")
     }
 }

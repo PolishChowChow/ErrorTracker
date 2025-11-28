@@ -1,20 +1,16 @@
 package com.example.errortracker.ui.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.errortracker.data.ErrorCode
@@ -23,16 +19,16 @@ import com.example.errortracker.data.ErrorCode
 @Composable
 fun Form(
     addErrorRecord: (errorRecord: ErrorCode) -> Unit,
-){
-    var formData by remember { mutableStateOf(ErrorCode("","","")) }
-    fun clearFormData(){
+) {
+    var formData by remember { mutableStateOf(ErrorCode("", "", "")) }
+    fun clearFormData() {
         formData = formData.copy(
             operation = "",
             errorValue = "",
             structure = "",
         )
     }
-    Row() {
+    Row {
         CustomRow(
             modifier = Modifier,
             wrap = { child, weight ->
@@ -41,7 +37,7 @@ fun Form(
                         .weight(weight)
                         .fillMaxHeight()
                         .padding(5.dp)
-                ){
+                ) {
                     child()
                 }
             },
@@ -49,32 +45,27 @@ fun Form(
                 (@Composable {
                     Input(
                         textValue = formData.operation,
-                        onValueChange = { it ->  formData = formData.copy(operation = it) },
-                        placeholder = { Text("Op30.3") }
-                    )
+                        onValueChange = { formData = formData.copy(operation = it) },
+                        placeholder = { Text("Op30.3") })
                 } to 1f),
                 (@Composable {
                     Input(
                         textValue = formData.structure,
-                        onValueChange = { it ->  formData = formData.copy(structure = it) },
-                        placeholder = { Text("R10") }
-                    )
+                        onValueChange = { formData = formData.copy(structure = it) },
+                        placeholder = { Text("R10") })
                 } to 1f),
                 (@Composable {
                     Input(
                         textValue = formData.errorValue,
-                        onValueChange = { it ->  formData = formData.copy(errorValue = it) },
-                        placeholder = { Text("R10") }
-                    )
+                        onValueChange = { formData = formData.copy(errorValue = it) },
+                        placeholder = { Text("R10") })
                 } to 1f),
                 (@Composable {
                     Button(
-                        onClick = { addErrorRecord(formData) }
-                    ) {
+                        onClick = { addErrorRecord(formData) }) {
                         Text("+")
                     }
                 } to .6f),
-            )
-        )
+            ))
     }
 }

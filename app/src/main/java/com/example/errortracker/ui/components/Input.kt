@@ -17,8 +17,7 @@ fun Input(
     TextField(
         value = textValue,
         textStyle = TextStyle(textAlign = TextAlign.Center),
-        onValueChange = { it -> onValueChange(it) },
+        onValueChange = { onValueChange(it) },
         modifier = modifier,
-        placeholder = { placeholder }
-    )
+        placeholder = { placeholder })
 }
