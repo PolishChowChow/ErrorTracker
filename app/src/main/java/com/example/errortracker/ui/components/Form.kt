@@ -46,19 +46,19 @@ fun Form(
                     Input(
                         textValue = formData.operation,
                         onValueChange = { formData = formData.copy(operation = it) },
-                        placeholder = { Text("Op30.3") })
+                        placeholder = { PlaceholderComponent(textValue = "Op30.3") })
                 } to 1f),
                 (@Composable {
                     Input(
                         textValue = formData.structure,
                         onValueChange = { formData = formData.copy(structure = it) },
-                        placeholder = { Text("R10") })
+                        placeholder = { PlaceholderComponent(textValue = "R10") })
                 } to 1f),
                 (@Composable {
                     Input(
                         textValue = formData.errorValue,
                         onValueChange = { formData = formData.copy(errorValue = it) },
-                        placeholder = { Text("R10") })
+                        placeholder = { PlaceholderComponent(textValue = "R10") })
                 } to 1f),
                 (@Composable {
                     Button(
