@@ -41,7 +41,8 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier) {
                 composable(Screen.List.route) {
                     ListScreen(
                         removeErrorCode = errorCodes::removeErrorCode,
-                        errorRecords = errorCodes.codes()
+                        errorRecords = errorCodes.codes(),
+                        addErrorCode = errorCodes::addErrorCode
                     )
                 }
             }

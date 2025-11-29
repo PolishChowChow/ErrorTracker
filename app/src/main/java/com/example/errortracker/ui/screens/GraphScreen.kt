@@ -12,6 +12,7 @@ fun GraphScreen(
     addErrorRecord: (errorRecord: ErrorCode) -> Unit,
 ) {
     Form(
-        addErrorRecord = addErrorRecord
+        onSubmit = addErrorRecord,
+        onClose = { }
     )
 }
