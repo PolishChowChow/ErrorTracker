@@ -3,6 +3,7 @@ package com.example.errortracker.ui.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -31,10 +32,10 @@ fun ListItem(
     val fontWeight = FontWeight.Medium
     val descriptionFontSize = 10.sp
     Card(
-        shape = MaterialTheme.shapes.medium, elevation = CardDefaults.cardElevation(3.dp)
+        shape = MaterialTheme.shapes.medium, elevation = CardDefaults.cardElevation(3.dp),
     ) {
         Row(
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier.padding(20.dp).fillMaxWidth()
         ) {
             Column(
                 modifier = Modifier.weight(.8f)
@@ -90,13 +91,13 @@ fun ListItem(
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun TestListItem() {
     MaterialTheme {
         ListItem(
             errorRecord = ErrorCode("OP10.1", "Siłownik Z10.2", "Siłownik nie osiąga pozycji"),
-            removeErrorCode = { }
-        )
+            removeErrorCode = { })
     }
 }
