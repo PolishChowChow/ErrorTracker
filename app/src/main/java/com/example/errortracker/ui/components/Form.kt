@@ -62,7 +62,10 @@ fun Form(
                 } to 1f),
                 (@Composable {
                     Button(
-                        onClick = { addErrorRecord(formData) }) {
+                        onClick = {
+                            addErrorRecord(formData)
+                            clearFormData()
+                        }) {
                         Text("+")
                     }
                 } to .6f),

@@ -1,6 +1,7 @@
 package com.example.errortracker.ui.components
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -11,9 +12,13 @@ fun CustomRow(
     wrap: @Composable (child: @Composable () -> Unit, weight: Float) -> Unit,
     vararg children: Pair<@Composable () -> Unit, Float?>
 ) {
-    Row(modifier = modifier) {
-        for ((child, weight) in children) {
-            wrap(child, weight ?: defaultWeight)
+    Card() {
+        Row(
+            modifier = modifier
+        ) {
+            for ((child, weight) in children) {
+                wrap(child, weight ?: defaultWeight)
+            }
         }
     }
 }

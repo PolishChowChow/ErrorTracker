@@ -8,7 +8,13 @@ class DataHandler {
     val errorCodes = mutableStateListOf<ErrorCode>()
     val aggredatedErrorCodes = errorCodes
     fun addErrorCode(errorCode: ErrorCode) {
-        this.errorCodes.add(errorCode)
+        this.errorCodes.add(
+            ErrorCode(
+                structure = errorCode.structure.lowercase(),
+                operation = errorCode.operation.lowercase(),
+                errorValue = errorCode.errorValue.lowercase(),
+            )
+        )
     }
 
     fun removeErrorCode(id: UUID) {
