@@ -94,6 +94,13 @@ fun ListScreen(
 @Composable
 fun TestListScreen() {
     val records = DataHandler()
+    records.addErrorCode(
+        Record(
+            content = "content",
+            description = "desc",
+            tags = listOf("siema","co","tam")
+        )
+    )
     ListScreen(
         errorRecords = records.codes(),
         removeErrorCode = records::removeErrorCode,
