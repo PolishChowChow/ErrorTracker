@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.errortracker.data.DataHandler
-import com.example.errortracker.data.ErrorCode
+import com.example.errortracker.data.Record
 import com.example.errortracker.ui.components.DialogForm
 import com.example.errortracker.ui.components.ListItem
 import java.util.UUID
@@ -33,8 +33,8 @@ import java.util.UUID
 @Composable
 fun ListScreen(
     removeErrorCode: (id: UUID) -> Unit,
-    errorRecords: SnapshotStateList<ErrorCode>,
-    addErrorCode: (ErrorCode) -> Unit
+    errorRecords: SnapshotStateList<Record>,
+    addErrorCode: (Record) -> Unit
 ) {
     val openDialog = remember { mutableStateOf(false) }
     when {
@@ -94,14 +94,8 @@ fun ListScreen(
 @Composable
 fun TestListScreen() {
     val records = DataHandler()
-
-    records.addErrorCode(ErrorCode("OP30.3", "R15", "Kolizja robota"))
-    records.addErrorCode(ErrorCode("OP30.3", "R15", "Kolizja robota"))
-    records.addErrorCode(ErrorCode("OP30.3", "R15", "Kolizja robota"))
-    records.addErrorCode(ErrorCode("OP30.3", "R15", "Kolizja robota"))
-
     ListScreen(
-        errorRecords = records.errorCodes,
+        errorRecords = records.codes(),
         removeErrorCode = records::removeErrorCode,
         addErrorCode = { })
 }

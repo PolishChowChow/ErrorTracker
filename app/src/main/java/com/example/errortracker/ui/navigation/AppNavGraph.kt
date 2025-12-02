@@ -19,7 +19,7 @@ import com.example.errortracker.ui.screens.ListScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController, modifier: Modifier) {
-    val errorCodes = remember { DataHandler() }
+    val records = remember { DataHandler() }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -35,14 +35,14 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier) {
             ) {
                 composable(Screen.Graph.route) {
                     GraphScreen(
-                        addErrorRecord = errorCodes::addErrorCode
+                        addErrorRecord = records::addErrorCode
                     )
                 }
                 composable(Screen.List.route) {
                     ListScreen(
-                        removeErrorCode = errorCodes::removeErrorCode,
-                        errorRecords = errorCodes.codes(),
-                        addErrorCode = errorCodes::addErrorCode
+                        removeErrorCode = records::removeErrorCode,
+                        errorRecords = records.codes(),
+                        addErrorCode = records::addErrorCode
                     )
                 }
             }

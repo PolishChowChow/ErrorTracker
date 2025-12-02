@@ -20,12 +20,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.errortracker.data.ErrorCode
+import com.example.errortracker.data.Record
 import java.util.UUID
 
 @Composable
 fun ListItem(
-    errorRecord: ErrorCode,
+    errorRecord: Record,
     removeErrorCode: (id: UUID) -> Unit,
 ) {
     val defaultFontSize = 16.sp
@@ -50,7 +50,7 @@ fun ListItem(
                         modifier = Modifier.weight(.15f)
                     ) {
                         Text(
-                            text = errorRecord.operation.uppercase(),
+                            text = errorRecord.content.uppercase(),
                             fontSize = defaultFontSize,
                             fontWeight = fontWeight
                         )
@@ -59,7 +59,7 @@ fun ListItem(
                         modifier = Modifier.weight(.4f)
                     ) {
                         Text(
-                            text = errorRecord.structure.uppercase(),
+                            text = errorRecord.description,
                             fontSize = defaultFontSize,
                             fontWeight = fontWeight
                         )
@@ -70,7 +70,7 @@ fun ListItem(
                     Box(
                         modifier = Modifier.weight(.2f)
                     ) {
-                        Text(text = errorRecord.errorValue, fontSize = descriptionFontSize)
+                        Text(text = errorRecord.potentialSolution, fontSize = descriptionFontSize)
                     }
                 }
             }
@@ -97,7 +97,9 @@ fun ListItem(
 fun TestListItem() {
     MaterialTheme {
         ListItem(
-            errorRecord = ErrorCode("OP10.1", "Siłownik Z10.2", "Siłownik nie osiąga pozycji"),
+            errorRecord = Record(
+                "OP10.1", "Siłownik Z10.2", tags = emptyList<String>(),
+            ),
             removeErrorCode = { })
     }
 }

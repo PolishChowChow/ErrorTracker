@@ -13,21 +13,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.errortracker.data.ErrorCode
+import com.example.errortracker.data.Record
 import com.example.errortracker.ui.theme.AppTheme
 
 
 @Composable
 fun Form(
-    onSubmit: (errorRecord: ErrorCode) -> Unit,
+    onSubmit: (errorRecord: Record) -> Unit,
     onClose: () -> Unit
 ) {
-    var formData by remember { mutableStateOf(ErrorCode("", "", "")) }
+    var formData by remember { mutableStateOf(Record("","", emptyList<String>())) }
     fun clearFormData() {
         formData = formData.copy(
-            operation = "",
-            errorValue = "",
-            structure = "",
+            content = "",
+            description = "",
+            tags = emptyList<String>(),
         )
     }
 
@@ -39,23 +39,23 @@ fun Form(
         }
     }, {
         Input(
-            textValue = formData.operation,
-            onValueChange = { formData = formData.copy(operation = it) },
+            textValue = formData.content,
+            onValueChange = { formData = formData.copy(content = it) },
             placeholder = { PlaceholderComponent(textValue = "30.3") },
             labelStr = "Operation",
             prefixStr = "OP"
         )
     }, {
         Input(
-            textValue = formData.structure,
-            onValueChange = { formData = formData.copy(structure = it) },
+            textValue = formData.description,
+            onValueChange = { formData = formData.copy(description = it) },
             placeholder = { PlaceholderComponent(textValue = "Z10.2") },
             labelStr = "Structure",
         )
     }, {
         Input(
-            textValue = formData.errorValue,
-            onValueChange = { formData = formData.copy(errorValue = it) },
+            textValue = formData.potentialSolution,
+            onValueChange = { formData = formData.copy(potentialSolution = it) },
             placeholder = { PlaceholderComponent(textValue = "Wire stick is still being detected") },
             labelStr = "Error value",
         )
