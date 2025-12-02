@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.errortracker.data.ErrorCode
+import com.example.errortracker.ui.theme.AppTheme
 
 
 @Composable
@@ -74,8 +75,10 @@ fun Form(
 @Preview(showBackground = true)
 @Composable
 fun TestForm() {
-    Form(
-        onSubmit = { },
-        onClose = { }
-    )
+    AppTheme {
+        Form(
+            onSubmit = { },
+            onClose = { }
+        )
+    }
 }
