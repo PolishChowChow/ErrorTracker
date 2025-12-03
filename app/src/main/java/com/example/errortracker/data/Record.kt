@@ -13,7 +13,6 @@ data class Record(
         LocalDate.now(),
         LocalTime.now()
     ),
-    var potentialSolution: String = ""
 ) {
     val id = UUID.randomUUID()
 }

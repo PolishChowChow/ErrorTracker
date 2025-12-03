@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,45 +39,44 @@ fun ListScreen(
     when {
         openDialog.value -> {
             DialogForm(
-                onDismissRequest = { openDialog.value = !openDialog.value },
-                onSubmit = addErrorCode
+                onDismissRequest = { openDialog.value = !openDialog.value }, onSubmit = addErrorCode
             )
         }
     }
-    Box {
-        Column(
-            modifier = Modifier.padding(10.dp)
+    Box(
+        modifier = Modifier.padding(10.dp)
+    ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxHeight(1f)
+                .fillMaxWidth(1f)
         ) {
-            Row(
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxHeight(.9f)
-                    .fillMaxWidth(1f)
+                    .fillMaxHeight()
+                    .fillMaxWidth()
             ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                ) {
-                    items(items = errorRecords, key = { it.id }) { record ->
-                        val enterState = remember {
-                            MutableTransitionState(false).apply { targetState = true }
-                        }
-                        AnimatedVisibility(
-                            visibleState = enterState,
-                            enter = fadeIn(animationSpec = tween(220)) + slideInVertically(
-                                initialOffsetY = { it / 4 }),
-                            exit = fadeOut()
+                items(items = errorRecords, key = { it.id }) { record ->
+                    val enterState = remember {
+                        MutableTransitionState(false).apply { targetState = true }
+                    }
+                    AnimatedVisibility(
+                        visibleState = enterState,
+                        enter = fadeIn(animationSpec = tween(220)) + slideInVertically(
+                            initialOffsetY = { it / 4 }),
+                        exit = fadeOut()
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(bottom = 20.dp)
                         ) {
-                            Row(
-                                modifier = Modifier.padding(bottom = 20.dp)
-                            ) {
-                                ListItem(record, removeErrorCode = removeErrorCode)
-                            }
+                            ListItem(record, removeErrorCode = removeErrorCode)
                         }
                     }
                 }
             }
         }
+
         Button(
             onClick = { openDialog.value = !openDialog.value },
             modifier = Modifier
@@ -96,9 +94,7 @@ fun TestListScreen() {
     val records = DataHandler()
     records.addErrorCode(
         Record(
-            content = "content",
-            description = "desc",
-            tags = listOf("siema","co","tam")
+            content = "content", description = "desc", tags = listOf("siema", "co", "tam")
         )
     )
     ListScreen(
