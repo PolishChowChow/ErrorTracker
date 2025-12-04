@@ -90,9 +90,9 @@ fun ListItem(
                         for (tag in errorRecord.tags) {
                             Column {
                                 AssistChip(
-                                    modifier = Modifier.height(32.dp),
+                                    modifier = Modifier.height(24.dp),
                                     onClick = { },
-                                    label = { Text(text = "#${tag}") },
+                                    label = { Text(text = "#${tag}", fontSize = 10.sp) },
 
 
                                     )

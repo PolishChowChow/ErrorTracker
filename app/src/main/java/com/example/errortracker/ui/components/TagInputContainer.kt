@@ -74,7 +74,7 @@ fun TagInputContainerContent(
         for (tag in tags) {
             val isSelected = actualTags.indexOf(tag) >= 0
             FilterChip(
-                modifier = Modifier.height(32.dp),
+                modifier = Modifier.height(24.dp),
                 selected = isSelected,
                 onClick = { onPress(tag) },
                 label = { Text(text = tag, fontSize = 10.sp) },
